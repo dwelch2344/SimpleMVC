@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<groupId>co.ntier.training.spring</groupId>
 	<artifactId>simple-mvc</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
-	
-	
+
+
 	<properties>
 		<spring.core.version>3.1.1.RELEASE</spring.core.version>
 		<spring.webmvc.version>3.1.0.RELEASE</spring.webmvc.version>
@@ -36,7 +36,7 @@
 			<artifactId>cglib</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-		
+
 		<!-- Servlet 3.0 Spec (provided when deployed) -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
@@ -76,8 +76,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 	</dependencies>
-	
+
+	<build>
+		<plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
 	<modelVersion>4.0.0</modelVersion>
 </project>
