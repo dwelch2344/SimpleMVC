@@ -16,14 +16,24 @@
                         authentication-failure-url="/login" 
                         username-parameter="user" password-parameter="password" />
                 <security:anonymous enabled="false"/>
-                <security:intercept-url pattern="/secure/**" access="hasRole('ROLE_DEFAULT')"/>
-                <!-- Uncomment this section to enable security -->
-                <!-- <security:intercept-url pattern="/**" access="isAuthenticated()" /> -->
+                <security:intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')"/>
+                <security:custom-filter after="LOGOUT_FILTER" ref="logoutFilter" />
         </security:http>
 
         <bean id="authenticationProcessingFilterEntryPoint"
                 class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
                 <property name="loginFormUrl" value="/login" />
         </bean>
+
+		<bean id="logoutFilter"
+			class="org.springframework.security.web.authentication.logout.LogoutFilter">
+			<constructor-arg value="/" />
+			<constructor-arg>
+				<list>
+					<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+				</list>
+			</constructor-arg>
+			<property name="filterProcessesUrl" value="/logout" />
+		</bean>
 
 </beans>
