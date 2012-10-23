@@ -2,8 +2,8 @@ package co.ntier.training.simplemvc.controller;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import co.ntier.training.simplemvc.model.SimpleUser;
 @Transactional
 public class HomeController {
 	
-	@PersistenceContext
+	@Inject
 	private EntityManager em;
 
 	@RequestMapping({"/", "/home"})
