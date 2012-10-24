@@ -11,8 +11,8 @@
                 <p>Thanks for signing up!</p>
                 <form:form commandName="bean" action="register">
                 	<form:errors path="*"/>
-                	<form:label path="user">Username:</form:label>
-                	<form:input path="user"/>
+                	<form:label path="name">Name:</form:label>
+                	<form:input path="name"/>
                 	
                 	<form:label path="email">Email:</form:label>
                 	<form:input path="email"/>

@@ -51,7 +51,7 @@ public class HomeController {
 			return "register";
 		}
 		
-		SimpleUser user = userService.create( bean.getUser(), bean.getEmail(), bean.getPassword());
+		SimpleUser user = userService.create( bean.getName(), bean.getEmail(), bean.getPassword());
 		return "redirect:/home?user=" + user.getId();
 	}
 	
@@ -62,17 +62,17 @@ public class HomeController {
 	
 	public static class RegisterBean{
 		@NotNull @NotEmpty
-		private String user, email;
+		private String name, email;
 		
 		@Length(min=6)
 		private String password;
 
-		public String getUser() {
-			return user;
+		public String getName() {
+			return name;
 		}
 
-		public void setUser(String user) {
-			this.user = user;
+		public void setName(String name) {
+			this.name = name;
 		}
 
 		public String getPassword() {
