@@ -113,20 +113,14 @@
 			<version>4.1.1.Final</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.0.0</version>
 		</dependency>
-
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.2.0.RC1</version>
 		</dependency>
 
 		<!-- Jackson - for JSON serialization -->
@@ -170,6 +164,15 @@
 		</dependency>
 
 	</dependencies>
+
+	<repositories>
+		<!-- Remove this repo once Spring Data JPA 1.2.0 is released -->
+		<repository>
+			<id>repo.springsource.org</id>
+			<name>repo.springsource.org-releases</name>
+			<url>http://repo.springsource.org/libs-milestone-local</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

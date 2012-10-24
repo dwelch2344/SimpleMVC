@@ -2,14 +2,13 @@ package co.ntier.training.simplemvc.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages="co.ntier.training.simplemvc.repo")
 public class DatastoreConfig {
 	
 	@SuppressWarnings("serial")
@@ -27,16 +27,8 @@ public class DatastoreConfig {
 		put("hibernate.show_sql", true);
 	}};
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	@Bean
-	public EntityManager entityManager(){
-		return em;
-	}
-	
-	@Bean
-	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(DataSource dataSource) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setPackagesToScan("co.ntier.training.simplemvc.model");
