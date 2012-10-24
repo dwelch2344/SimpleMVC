@@ -1,4 +1,5 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <tags:template>
 	<jsp:attribute name="head">  
 	</jsp:attribute>
@@ -8,22 +9,12 @@
 	        <div class="span3">
 	          <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
-	              <li class="nav-header">Sidebar</li>
-	              <li class="active"><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li class="nav-header">Sidebar</li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li class="nav-header">Sidebar</li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li>
+	              <li class="nav-header">Users</li>
+	              <c:forEach items="${users}" var="user">
+	              	<li> <c:out value="${user.name}"/> </li>
+	              </c:forEach>
+	              <!-- <li class="active"><a href="#">Link</a></li>
+	              <li><a href="#">Link</a></li> -->
 	            </ul>
 	          </div><!--/.well -->
 	        </div><!--/span-->

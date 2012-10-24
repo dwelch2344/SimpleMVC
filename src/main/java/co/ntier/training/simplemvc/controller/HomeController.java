@@ -1,38 +1,58 @@
 package co.ntier.training.simplemvc.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.ntier.training.simplemvc.model.SimpleUser;
-import co.ntier.training.simplemvc.repo.SimpleUserRepository;
+import co.ntier.training.simplemvc.svc.UserService;
 
 @Controller
-@Transactional
+@Transactional(propagation=Propagation.REQUIRES_NEW)
 public class HomeController {
 	
-	@PersistenceContext
-	private EntityManager em;
+	private static final Logger logger = Logger.getLogger(HomeController.class.getName());
 	
 	@Inject
-	private SimpleUserRepository repo;
+	private UserService userService;
 
 	@RequestMapping({"/", "/home"})
-	@Transactional
 	public String getHome(Model model) {
-		SimpleUser user = new SimpleUser("someguy", "email", BCrypt.hashpw("password", BCrypt.gensalt()));
-		user = repo.save(user);
-		List<SimpleUser> users = repo.findAll();
+		List<SimpleUser> users = userService.findAll();
 		model.addAttribute("users", users);
 		return "home";
+	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public String getRegister(Model model) {
+		model.addAttribute("bean", new RegisterBean());
+		return "register";
+	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String postRegister(Model model, @ModelAttribute("bean") @Valid RegisterBean bean, BindingResult result) {
+		boolean invalid = result.hasErrors();
+		if( invalid ){
+			logger.info("Failed registering");
+			return "register";
+		}
+		
+		SimpleUser user = userService.create( bean.getUser(), bean.getEmail(), bean.getPassword());
+		return "redirect:/home?user=" + user.getId();
 	}
 	
 	@RequestMapping("/secure/test")
@@ -40,12 +60,36 @@ public class HomeController {
 		return "home";
 	}
 	
-	public void entityManagerTest(){
-		SimpleUser user = new SimpleUser("someguy", "email", BCrypt.hashpw("password", BCrypt.gensalt()));
-		em.persist(user);
-		em.flush();
-		List<SimpleUser> users = em.createQuery("From SimpleUser", SimpleUser.class).getResultList();
-		System.out.println(users.size() + " users");
-	}
+	public static class RegisterBean{
+		@NotNull @NotEmpty
+		private String user, email;
+		
+		@Length(min=6)
+		private String password;
 
+		public String getUser() {
+			return user;
+		}
+
+		public void setUser(String user) {
+			this.user = user;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+	}
+	
 }
