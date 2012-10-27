@@ -2,6 +2,7 @@ package co.ntier.training.simplemvc.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.WebRequestInterceptor;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
