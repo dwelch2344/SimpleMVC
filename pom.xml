@@ -11,6 +11,7 @@
 		<spring.core.version>3.1.1.RELEASE</spring.core.version>
 		<spring.webmvc.version>3.1.1.RELEASE</spring.webmvc.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>
+		<embedded.tomcat.version>1.0.1</embedded.tomcat.version>
 	</properties>
 
 	<dependencies>
@@ -87,13 +88,14 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-
-		<!-- Servlet 3.0 Spec (provided when deployed) -->
+		
+		
+		<!-- Servlet API -->
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.servlet</artifactId>
-			<version>3.0</version>
-			<scope>provided</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope> 
 		</dependency>
 
 		<!-- Hibernate, Spring Data JPA & ORM -->
@@ -183,7 +185,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		
 	</dependencies>
 
 	<repositories>
@@ -193,7 +195,41 @@
 			<name>repo.springsource.org-releases</name>
 			<url>http://repo.springsource.org/libs-milestone-local</url>
 		</repository>
+		<!-- My Snapshot Repos -->
+		<repository>
+			<id>ntier-repo</id>
+			<url>https://github.com/dwelch2344/maven-repo/raw/master/releases</url>
+		</repository>
+		<repository>
+			<id>ntier-snapshot-repo</id>
+			<url>https://github.com/dwelch2344/maven-repo/raw/master/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
 	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ntier-repo</id>
+			<url>https://github.com/dwelch2344/maven-repo/raw/master/releases</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+		</pluginRepository>
+		<pluginRepository>
+			<id>ntier-snapshot-repo</id>
+			<url>https://github.com/dwelch2344/maven-repo/raw/master/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>
@@ -214,6 +250,17 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>co.ntier.mojo</groupId>
+				<artifactId>embedded-tomcat</artifactId>
+				<version>${embedded.tomcat.version}</version>
+				
+				<configuration>
+					<propFile>dev-config.properties</propFile>
+				</configuration>
+				
+			</plugin>
+			
 		</plugins>
 	</build>
 
