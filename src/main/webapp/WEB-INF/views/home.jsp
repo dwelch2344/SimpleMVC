@@ -1,8 +1,6 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<tags:template>
-	<jsp:attribute name="head">  
-	</jsp:attribute>
+<tags:template title="Home" >
 	<jsp:body>
 	
 		<div class="row-fluid">
@@ -11,10 +9,13 @@
 	            <ul class="nav nav-list">
 	              <li class="nav-header">Users</li>
 	              <c:forEach items="${users}" var="user">
-	              	<li> <c:out value="${user.name}"/> </li>
+	              	<li> 
+	              		<c:out value="${user.name}"/> 
+	              		<c:if test="${user.id == param.user}">
+	              			( <b> Your New Account </b> )
+	              		</c:if>
+	              	</li>
 	              </c:forEach>
-	              <!-- <li class="active"><a href="#">Link</a></li>
-	              <li><a href="#">Link</a></li> -->
 	            </ul>
 	          </div><!--/.well -->
 	        </div><!--/span-->
@@ -57,6 +58,7 @@
 	              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
 	              <p><a class="btn" href="#">View details &raquo;</a></p>
 	            </div><!--/span-->
+	            
 	          </div><!--/row-->
 	        </div><!--/span-->
 	      </div><!--/row-->

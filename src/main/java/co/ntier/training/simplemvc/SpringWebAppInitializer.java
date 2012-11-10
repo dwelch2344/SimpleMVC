@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,13 +28,15 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 public class SpringWebAppInitializer implements WebApplicationInitializer {
 
+	private static final Logger logger = Logger.getLogger( SpringWebAppInitializer.class.getName() );
+	
 	@Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 		Map<String, ? extends ServletRegistration> servlets = servletContext.getServletRegistrations();
-        System.out.println("Servlets: " + servlets.size());
+        logger.finest("Servlets: " + servlets.size());
         for(String key : servlets.keySet()){
         	ServletRegistration reg = servlets.get(key);
-        	System.out.println(" ==> " + key + " : " + reg.getClassName() + " [" + reg.getMappings() +"]");
+        	logger.finest(" ==> " + key + " : " + reg.getClassName() + " [" + reg.getMappings() +"]");
         }
 		
 		// Create the 'root' Spring application context & scans anything for annotations this package

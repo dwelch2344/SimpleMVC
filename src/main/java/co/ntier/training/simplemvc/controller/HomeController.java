@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping({"/about"})
+	public String getAbout(Model model) {
+		return "about";
+	}
+	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String getRegister(Model model) {
 		model.addAttribute("bean", new RegisterBean());
@@ -55,14 +61,17 @@ public class HomeController {
 		return "redirect:/home?user=" + user.getId();
 	}
 	
-	@RequestMapping("/secure/test")
+	@RequestMapping("/secure/account")
 	public String getSecureTest(Model model) {
-		return "home";
+		return "account";
 	}
 	
 	public static class RegisterBean{
 		@NotNull @NotEmpty
-		private String name, email;
+		private String name;
+		
+		@NotNull @NotEmpty @Email
+		private String email;
 		
 		@Length(min=6)
 		private String password;
