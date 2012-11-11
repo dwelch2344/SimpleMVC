@@ -1,1 +1,1 @@
-web: .maven/bin/mvn clean package co.ntier.mojo:embedded-tomcat:tomcat
+web: .maven/bin/mvn co.ntier.mojo:embedded-tomcat:tomcat
