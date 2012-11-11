@@ -265,11 +265,11 @@
 				<groupId>co.ntier.mojo</groupId>
 				<artifactId>embedded-tomcat</artifactId>
 				<version>${embedded.tomcat.version}</version>
-				
+				<!--	
 				<configuration>
 					<propFile>dev-config.properties</propFile>
 				</configuration>
-				
+				-->
 			</plugin>
 			
 		</plugins>
